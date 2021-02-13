@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Story;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoryRequest;
+// use Illuminate\Support\Facades\Gate;
 
 class StoryController extends Controller
 {
+
+    public function __construct()
+    {
+        // define policy for all methods in the class
+        // this policy only works in resource controllers
+        $this->authorizeResource(Story::class, 'story'); 
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +24,7 @@ class StoryController extends Controller
      */
     public function index()
     {
-        $userId = auth()->user()->id;
-        $stories = Story::where('user_id', $userId)->orderBy('id', 'DESC')->paginate(5);
+        $stories = Story::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(5);
         return view('story.index', compact('stories'));
     }
 
@@ -63,6 +71,10 @@ class StoryController extends Controller
      */
     public function edit(Story $story)
     {
+        // Gate::authorize('edit-story', $story);
+
+        // $this->authorize('update', $story);
+
         $story = Story::where('id', $story->id)->first();
         return view('story.edit', compact('story'));
     }

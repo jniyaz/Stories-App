@@ -12,7 +12,8 @@
                 </div>
 
                 <div class="card-body">
-                    {{ ucfirst($story->body) }}
+                    {{ ucfirst($story->body) }} <br/><br/>
+                    Status: {{ $story->status == true ? 'Active' : 'Inactive' }}
                 </div>
             </div>
         </div>
