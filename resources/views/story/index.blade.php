@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     Stories
-                    <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                    <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Add</a>
                 </div>
 
                 <div class="card-body">
@@ -40,7 +40,10 @@
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-                                <td><a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item->id]) }}">View</a></td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item]) }}">View</a>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('story.edit', [$item]) }}">Edit</a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

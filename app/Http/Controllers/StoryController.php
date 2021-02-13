@@ -38,31 +38,32 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
         $request->validate([
             'title' => 'required',
             'body' => 'required',
             'type' => 'required',
             'status' => 'required'
         ]);
-        $user->stories()->create([
+        
+        auth()->user()->stories()->create([
             'title' => $request->title, 
             'body' => $request->body, 
             'type' => $request->type, 
             'status' => $request->status
         ]);
-        return redirect()->route('story.index')->with('status', 'Story creation successful');
+
+        return redirect()->route('story.index')->with('status', 'Story added successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $story
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Story $story)
     {
-        $story = Story::where('id', $id)->first();
+        $story = Story::where('id', $story->id)->first();
         
         return view('story.show', compact('story'));
     }
@@ -70,24 +71,34 @@ class StoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $story
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Story $story)
     {
-        //
+        $story = Story::where('id', $story->id)->first();
+        return view('story.edit', compact('story'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  object $story
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Story $story)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'type' => 'required',
+            'status' => 'required'
+        ]);
+
+        $story->update($data);
+
+        return redirect()->route('story.index')->with('status', 'Story saved successfully');
     }
 
     /**
