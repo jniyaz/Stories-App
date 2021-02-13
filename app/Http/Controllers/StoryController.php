@@ -27,7 +27,8 @@ class StoryController extends Controller
      */
     public function create()
     {
-        return view('story.create');
+        $story = new Story;
+        return view('story.create', compact('story'));
     }
 
     /**
