@@ -16,4 +16,11 @@ class StoryController extends Controller
 
         return view('story.index', compact('stories'));
     }
+
+    public function show(int $id)
+    {
+        $story = Story::where('id', $id)->first();
+        
+        return view('story.show', compact('story'));
+    }
 }

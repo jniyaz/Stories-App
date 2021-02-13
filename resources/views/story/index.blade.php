@@ -17,6 +17,7 @@
                             <th scope="col">Type</th>
                             <th scope="col">Status</th>
                             <th scope="col">Created At</th>
+                            <th scope="col">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -28,6 +29,7 @@
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+                                <td><a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item->id]) }}">View</a></td>
                             </tr>
                             @endforeach
                         </tbody>

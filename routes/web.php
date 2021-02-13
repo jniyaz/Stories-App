@@ -22,5 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('stories', 'StoryController@index');
+    Route::get('stories', 'StoryController@index')->name('story.index');
+    Route::get('stories/{id}', 'StoryController@show')->name('story.show');
 });
