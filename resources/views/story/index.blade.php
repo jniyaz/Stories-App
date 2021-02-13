@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             @if(session('status'))
                 <div class="alert alert-success alert-dismissible fade show">
                     {{ session('status') }}
@@ -40,9 +40,14 @@
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item]) }}">View</a>
                                     <a class="btn btn-warning btn-sm" href="{{ route('story.edit', [$item]) }}">Edit</a>
+                                    <form action="{{ route('story.destroy', [$item]) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
