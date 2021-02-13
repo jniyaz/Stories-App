@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // onetomany relationship with story model
+    public function stories() {
+        return $this->hasMany(\App\Story::class);
+    }
 }
