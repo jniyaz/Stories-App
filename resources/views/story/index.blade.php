@@ -4,8 +4,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(session('status'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card">
-                <div class="card-header">Stories</div>
+                <div class="card-header">
+                    Stories
+                    <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                </div>
 
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -25,7 +36,7 @@
                             <tr>
                                 <th scope="row">{{ $k+1 }}</th>
                                 <td>{{ ucwords($item->title) }}</td>
-                                <td>{{ $item->body }}</td>
+                                <td>{{ ucfirst($item->body) }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
