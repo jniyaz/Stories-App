@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Story;
+use App\Mail\NewStory;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoryRequest;
 // use Illuminate\Support\Facades\Gate;
@@ -47,7 +48,10 @@ class StoryController extends Controller
      */
     public function store(StoryRequest $request)
     {
-        auth()->user()->stories()->create($request->all());
+        $story = auth()->user()->stories()->create($request->all());
+
+        \Mail::send(new NewStory($story->title));
+
         return redirect()->route('story.index')->with('status', 'Story added successfully');
     }
 
