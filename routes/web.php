@@ -19,7 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', 'DashboardController@index')->name('dashboard.index');
+Route::get('/stories/{story:slug}', 'DashboardController@show')->name('dashboard.show');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('story', 'StoryController');

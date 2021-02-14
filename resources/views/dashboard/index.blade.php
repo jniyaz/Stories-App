@@ -14,10 +14,12 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    My Stories
-                    @can('create', 'App\Story')
-                    <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Add</a>
-                    @endcan
+                    Stories
+                    <span class="float-right">
+                        <a href="{{ route('dashboard.index') }}">All</a> |
+                        <a href="{{ route('dashboard.index', ['type'=>'short']) }}">Short</a> |
+                        <a href="{{ route('dashboard.index', ['type'=>'long']) }}">Long</a>
+                    </span>
                 </div>
 
                 <div class="card-body">
@@ -26,9 +28,8 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
-                            <th scope="col">Description</th>
                             <th scope="col">Type</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Author</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Action</th>
                           </tr>
@@ -38,33 +39,22 @@
                             <tr>
                                 <th scope="row">{{ $k+1 }}</th>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ $item->body }}</td>
                                 <td>{{ $item->type }}</td>
-                                <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                                 <td class="text-center">
-                                    @can('view', $item)
-                                    <a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item]) }}">View</a>
-                                    @endcan
-                                    @can('update', $item)
-                                    <a class="btn btn-warning btn-sm" href="{{ route('story.edit', [$item]) }}">Edit</a>
-                                    @endcan
-                                    @can('delete', $item)
-                                    <form action="{{ route('story.destroy', [$item]) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                    @endcan
+                                    <a class="btn btn-primary btn-sm" href="{{ route('dashboard.show', [$item]) }}">View</a>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $stories->links() }}
+                    {{ $stories->withQueryString()->links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+{{-- {{ dd(DB::getQueryLog()) }} --}}

@@ -20,6 +20,11 @@ class Story extends Model
         return ucfirst($value);
     }
 
+    public function getTypeAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     public function getFootNoteAttribute()
     {
         return ucfirst($this->type) . ' type created at ' . date('Y-m-d', strtotime($this->created_at));
