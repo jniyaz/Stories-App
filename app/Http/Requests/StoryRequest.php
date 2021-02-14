@@ -31,18 +31,18 @@ class StoryRequest extends FormRequest
                 },
                 Rule::unique('stories')->ignore($storyId)
             ],
-            'body' => ['required', 'min:10', 'max:100'],
+            'body' => ['required', 'min:25'],
             'type' => 'required',
             'status' => 'required'
         ];
     }
 
-    // public function withValidator($v)
-    // {
-    //     $v->sometimes('body', 'max:200', function($input){
-    //         return 'short' == $input->type;
-    //     });
-    // }
+    public function withValidator($v)
+    {
+        $v->sometimes('body', 'max:100', function($value){
+            return 'short' == $value->type;
+        });
+    }
 
     public function messages()
     {
