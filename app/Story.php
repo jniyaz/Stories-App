@@ -12,7 +12,20 @@ class Story extends Model
     // dont check mass assignments
     // protected $guarded = [];
 
-    // relationship with user model
+    // Accessors
+
+    public function getTitleAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getFootNoteAttribute()
+    {
+        return ucfirst($this->type) . ' type created at ' . date('Y-m-d', strtotime($this->created_at));
+    }
+
+    // Relationships
+
     public function user() {
         return $this->belongsTo(\App\User::class);
     }

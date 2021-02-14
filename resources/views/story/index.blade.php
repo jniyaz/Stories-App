@@ -37,8 +37,8 @@
                             @foreach ($stories as $k => $item)
                             <tr>
                                 <th scope="row">{{ $k+1 }}</th>
-                                <td>{{ ucwords($item->title) }}</td>
-                                <td>{{ ucfirst($item->body) }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->body }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
