@@ -50,7 +50,11 @@ class StoryController extends Controller
     {
         $story = auth()->user()->stories()->create($request->all());
 
-        \Mail::send(new NewStory($story->title));
+        // Log info
+        // \Log::info('A story with title ' . $story->title . ' was added.');
+        
+        // Mail Notification
+        // \Mail::send(new NewStory($story->title));
 
         return redirect()->route('story.index')->with('status', 'Story added successfully');
     }
