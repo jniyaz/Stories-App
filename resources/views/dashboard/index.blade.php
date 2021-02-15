@@ -35,18 +35,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($stories as $k => $item)
-                            <tr>
-                                <th scope="row">{{ $k+1 }}</th>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->user->name }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-                                <td class="text-center">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('dashboard.show', [$item]) }}">View</a>
-                                </td>
-                            </tr>
-                            @endforeach
+                            @if(!empty($stories))
+                                @foreach ($stories as $k => $item)
+                                <tr>
+                                    <td scope="row">{{ $k+1 }}</td>
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-primary btn-sm" href="{{ route('dashboard.show', [$item]) }}">View</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            @else
+                            <p>No data found.</p>
+                            @endif
                         </tbody>
                     </table>
                     {{ $stories->withQueryString()->links() }}

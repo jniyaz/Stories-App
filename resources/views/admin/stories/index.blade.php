@@ -14,10 +14,7 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    My Stories
-                    @can('create', 'App\Story')
-                    <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Add</a>
-                    @endcan
+                    Deleted Stories
                 </div>
                 <div class="card-body">
                     @if(count($stories) > 0)
@@ -27,10 +24,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">User</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -39,24 +33,7 @@
                             <th scope="row">{{ $k+1 }}</th>
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->body }}</td>
-                            <td>{{ $item->type }}</td>
-                            <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-                            <td class="text-center">
-                                @can('view', $item)
-                                <a class="btn btn-primary btn-sm" href="{{ route('story.show', [$item]) }}">View</a>
-                                @endcan
-                                @can('update', $item)
-                                <a class="btn btn-warning btn-sm" href="{{ route('story.edit', [$item]) }}">Edit</a>
-                                @endcan
-                                @can('delete', $item)
-                                <form action="{{ route('story.destroy', [$item]) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                                @endcan
-                            </td>
+                            <td>{{ $item->user->name }}</td>
                         </tr>
                         @endforeach
                         </tbody>
