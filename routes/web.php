@@ -31,4 +31,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', CheckAdmin::class]], function () {
     Route::get('deleted-stories', 'StoriesController@index')->name('admin.story.index');
+    Route::put('/stories/restore/{id}', 'StoriesController@restore')->name('admin.story.restore');
+    Route::delete('/stories/delete/{id}', 'StoriesController@destroy')->name('admin.story.destroy');
 });

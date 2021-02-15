@@ -25,15 +25,28 @@
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">User</th>
+                            <th scope="col">Action</th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($stories as $k => $item)
                         <tr>
-                            <th scope="row">{{ $k+1 }}</th>
+                            <td>{{ $k+1 }}</th>
                             <td>{{ $item->title }}</td>
-                            <td>{{ $item->body }}</td>
+                            <td width="30%">{{ $item->body }}</td>
                             <td>{{ $item->user->name }}</td>
+                            <td>
+                                <form action="{{ route('admin.story.restore', ['id' => $item->id]) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-sm btn-primary">Restore</button>
+                                </form>
+                                <form action="{{ route('admin.story.destroy', ['id' => $item->id]) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                         </tbody>
