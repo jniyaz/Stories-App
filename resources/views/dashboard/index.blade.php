@@ -27,6 +27,7 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Title</th>
                             <th scope="col">Type</th>
                             <th scope="col">Author</th>
@@ -39,6 +40,7 @@
                                 @foreach ($stories as $k => $item)
                                 <tr>
                                     <td scope="row">{{ $k+1 }}</td>
+                                    <td><img src="{{ $item->thumbnail }}" width="150" alt="{{ $item->title }}" /></td>
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->user->name }}</td>

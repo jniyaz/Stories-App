@@ -13,7 +13,7 @@
 
                 <div class="card-body">
                     @if(session('status'))<div class="alert alert-success">{{ session('status') }}</div>@endif
-                    <form action="{{ route('story.update', [$story]) }}" method="POST">
+                    <form action="{{ route('story.update', [$story]) }}" method="POST" enctype="multipart/form-data">
                         @csrf()
                         @method('PUT')
                         @include('story.form')

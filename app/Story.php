@@ -33,6 +33,11 @@ class Story extends Model
         return ucfirst($this->type) . ' type created at ' . date('Y-m-d', strtotime($this->created_at));
     }
 
+    public function getThumbnailAttribute()
+    {
+        return $this->image ? asset('storage/stories/' . $this->image) : asset('storage/stories/default.jpg');
+    }
+
     // Mutators
 
     public function setTitleAttribute($value)

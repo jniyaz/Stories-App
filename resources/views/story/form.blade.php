@@ -18,12 +18,24 @@
 <label for="exampleFormControlSelect1">Type</label>
 <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
     <option value="">-</option>
-    <option value="short" {{ 'short' == old('type', $story->type) ? 'selected'  : '' }}>Short</option>
-    <option value="long"  {{ 'long' == old('type', $story->type) ? 'selected'  : '' }}>Long</option>
+    <option value="short" {{ 'Short' == old('type', $story->type) ? 'selected'  : '' }}>Short</option>
+    <option value="long"  {{ 'Long' == old('type', $story->type) ? 'selected'  : '' }}>Long</option>
 </select>
 @error('type')
     <span class="invalid-feedback" role="alert">{{ $message }}</span>
 @enderror
+</div>
+<div class="form-group">
+    <label for="image">Image</label>
+    @if($story->image)
+    <div class="mb-2">
+        <img src="{{ asset('storage/stories/' . $story->image) }}" width="160" alt="">
+    </div>
+    @endif
+    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" />
+    @error('image')
+    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+    @enderror
 </div>
 <div class="form-group">
     <legend><h6>Status</h6></legend>

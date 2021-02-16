@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                     @endif --}}
-                    <form action="{{ route('story.store') }}" method="POST">
+                    <form action="{{ route('story.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf()
                         @include('story.form')
                         <div class="form-group">

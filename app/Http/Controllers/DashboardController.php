@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $type = request()->input('type');
         in_array($type, ['short', 'long']) ? $query->where('type', $type) : null;
 
-        $stories = $query->orderBy('id', 'DESC')->paginate(2);
+        $stories = $query->orderBy('id', 'DESC')->paginate(5);
         
         return view('dashboard.index', compact('stories'));
     }
