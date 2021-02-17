@@ -28,6 +28,7 @@
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Type</th>
+                            <th scope="col">Tags</th>
                             <th scope="col">Status</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Action</th>
@@ -40,6 +41,7 @@
                             <td>{{ $item->title }}</td>
                             <td width="30%">{{ $item->body }}</td>
                             <td>{{ $item->type }}</td>
+                            <td>@foreach($item->tags as $tag) {{ $tag->name }} @endforeach</td>
                             <td>{{ $item->status == true ? 'Active' : 'Inactive' }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                             <td class="text-center">

@@ -20,20 +20,23 @@
         @if(!empty($stories))
             @foreach ($stories as $k => $item)
             <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-                <a href="{{ route('dashboard.show', [$item]) }}">
-                <img class="card-img-top" src="{{ $item->thumbnail }}" height="160" alt="{{ $item->title }}" />
-                </a>
-                <div class="card-body">
-                <p class="card-text">{{ $item->title }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">{{ $item->user->name }}</button>
+                <div class="card mb-4 box-shadow">
+                    <a href="{{ route('dashboard.show', [$item]) }}">
+                    <img class="card-img-top" src="{{ $item->thumbnail }}" height="160" alt="{{ $item->title }}" />
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ $item->title }}</p>
+                        <div class="py-2">
+                            @foreach($item->tags as $tag) <button type="button" class="btn btn-sm btn-outline-secondary">{{ $tag->name }}</button> @endforeach
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary">{{ ucfirst($item->user->name) }}</button>
+                            </div>
+                            <small class="text-muted">{{ $item->type }}</small>
+                        </div>
                     </div>
-                    <small class="text-muted">{{ $item->type }}</small>
                 </div>
-                </div>
-            </div>
             </div>
             @endforeach
         @else

@@ -51,3 +51,17 @@
     <span class="invalid-feedback" role="alert">{{ $message }}</span>
     @enderror
 </div>
+
+<div class="form-group">
+    <legend><h6>Tags</h6></legend>
+    @foreach ($tags as $tag)
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}"
+            {{ in_array($tag->id, old('tags', $story->tags->pluck('id')->toArray())) ? 'checked' : '' }}
+            >
+            <label class="form-check-label" for="tag">
+                {{ $tag->name }}
+            </label>
+        </div>
+    @endforeach
+</div>

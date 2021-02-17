@@ -16,6 +16,9 @@
                         <img src="{{ $story->thumbnail }}" height="200" alt="{{ $story->title }}" />
                     </div>
                     <div class="py-2">{{ $story->body }}</div>
+                    <div class="py-2">
+                        @foreach($story->tags as $tag) <button type="button" class="btn btn-sm btn-outline-secondary">{{ $tag->name }}</button> @endforeach
+                    </div>
                     <div class="d-flex justify-content-between align-items-center py-4">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary">{{ $story->user->name }}</button>

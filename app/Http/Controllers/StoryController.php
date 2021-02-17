@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Story;
 use App\Mail\NewStory;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class StoryController extends Controller
     public function create()
     {
         $story = new Story;
-        return view('story.create', compact('story'));
+        $tags = Tag::get();
+        return view('story.create', compact('story', 'tags'));
     }
 
     /**
@@ -53,6 +55,10 @@ class StoryController extends Controller
 
         if($request->hasFile('image')) {
             $this->_uploadImage($request, $story);
+        }
+
+        if($request->tags) {
+            $story->tags()->sync($request->tags);
         }
 
         // Log info
@@ -87,9 +93,10 @@ class StoryController extends Controller
         // Gate::authorize('edit-story', $story);
 
         // $this->authorize('update', $story);
-
+        $tags = Tag::get();
         $story = Story::where('id', $story->id)->first();
-        return view('story.edit', compact('story'));
+
+        return view('story.edit', compact('story', 'tags'));
     }
 
     /**
@@ -105,6 +112,10 @@ class StoryController extends Controller
         
         if($request->hasFile('image')) {
             $this->_uploadImage($request, $story);
+        }
+
+        if($request->tags) {
+            $story->tags()->sync($request->tags);
         }
 
         return redirect()->route('story.index')->with('status', 'Story saved successfully');

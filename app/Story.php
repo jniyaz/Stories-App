@@ -51,5 +51,15 @@ class Story extends Model
     public function user() {
         return $this->belongsTo(\App\User::class);
     }
+    
+    /**
+     * The tags that belong to the Story
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(\App\Tag::class);
+    }
 
 }
