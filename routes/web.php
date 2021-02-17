@@ -40,4 +40,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('deleted-stories', 'StoriesController@index')->name('admin.story.index');
     Route::put('/stories/restore/{id}', 'StoriesController@restore')->name('admin.story.restore');
     Route::delete('/stories/delete/{id}', 'StoriesController@destroy')->name('admin.story.destroy');
+    Route::get('/stories/stats', 'StoriesController@stats')->name('admin.story.stats');
 });

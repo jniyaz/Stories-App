@@ -31,4 +31,10 @@ class StoriesController extends Controller
         $story->forceDelete();
         return redirect()->route('admin.story.index')->with('status', 'Story deleted successfully');
     }
+
+    public function stats()
+    {
+        $stories = Story::active()->whereCreatedThisMonth()->with('user')->orderBy('id', 'DESC')->paginate(5);
+        return view('admin.stories.stats', compact('stories'));
+    }
 }

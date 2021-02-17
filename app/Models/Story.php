@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use App\Events\StoryCreated;
+use App\Events\StoryUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +18,18 @@ class Story extends Model
     
     // dont check mass assignments
     // protected $guarded = [];
+
+    // Model events - life cycle hooks
+
+    protected static function booted() {
+        static::created(function($story) {
+            event(new StoryCreated($story->title));
+        });
+
+        static::updated(function($story) {
+            event(new StoryUpdated($story->title));
+        });
+    }
 
     // Accessors
 
@@ -47,17 +61,26 @@ class Story extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
+    // Local Scopes
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeWhereCreatedThisMonth($query)
+    {
+        $startDate = \Carbon\Carbon::now()->startOfMonth();
+        $endDate = \Carbon\Carbon::now()->endOfMonth();
+        return $query->whereBetween('created_at', [$startDate, $endDate]);
+    }
+
     // Relationships
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
     }
     
-    /**
-     * The tags that belong to the Story
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function tags()
     {
         return $this->belongsToMany(\App\Models\Tag::class);

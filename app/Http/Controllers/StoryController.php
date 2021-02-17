@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Story;
-use App\Mail\NewStory;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoryRequest;
 use Intervention\Image\Facades\Image;
@@ -61,11 +60,7 @@ class StoryController extends Controller
             $story->tags()->sync($request->tags);
         }
 
-        // Log info
-        // \Log::info('A story with title ' . $story->title . ' was added.');
-        
-        // Mail Notification
-        // \Mail::send(new NewStory($story->title));
+        // event(new StoryCreated($story->title)); // moved to model events
 
         return redirect()->route('story.index')->with('status', 'Story added successfully');
     }
@@ -117,6 +112,8 @@ class StoryController extends Controller
         if($request->tags) {
             $story->tags()->sync($request->tags);
         }
+
+        // event(new StoryUpdated($story->title)); // moved to model events
 
         return redirect()->route('story.index')->with('status', 'Story saved successfully');
     }

@@ -68,6 +68,9 @@
                                         Deleted Stories
                                     </a>
                                     @endif
+                                    <a class="dropdown-item" href="{{ route('admin.story.stats') }}">
+                                        Stats
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
