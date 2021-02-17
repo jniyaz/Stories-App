@@ -23,11 +23,18 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/home', 'DashboardController@index')->name('dashboard.index');
+
 Route::get('/stories/{story:slug}', 'DashboardController@show')->name('dashboard.show');
 
 Route::group(['middleware' => ['auth']], function () {
+    // Stories
     Route::resource('story', 'StoryController');
+    
+    // Profiles
+    Route::get('profile-edit', 'ProfileController@edit')->name('profile.edit');
+    Route::put('profile-edit/{user}', 'ProfileController@update')->name('profile.update');
 });
+
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', CheckAdmin::class]], function () {
     Route::get('deleted-stories', 'StoriesController@index')->name('admin.story.index');
