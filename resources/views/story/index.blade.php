@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     My Stories
-                    @can('create', 'App\Story')
+                    @can('create', 'App\Models\Story')
                     <a href="{{ route('story.create') }}" class="btn btn-primary btn-sm float-right">Add</a>
                     @endcan
                 </div>

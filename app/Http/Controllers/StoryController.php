@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Story;
+use App\Models\Tag;
+use App\Models\Story;
 use App\Mail\NewStory;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoryRequest;

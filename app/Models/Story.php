@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +49,7 @@ class Story extends Model
     // Relationships
 
     public function user() {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
     
     /**
@@ -59,7 +59,7 @@ class Story extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany(\App\Tag::class);
+        return $this->belongsToMany(\App\Models\Tag::class);
     }
 
 }
